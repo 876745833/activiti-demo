@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://sourceforge.net/bpmn/definitions/_1570586366637" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:yaoqiang="http://bpmn.sourceforge.net" expressionLanguage="http://www.w3.org/1999/XPath" id="_1570586366637" name="" targetNamespace="http://sourceforge.net/bpmn/definitions/_1570586366637" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="demoTest" isClosed="false" isExecutable="true" name="测试Demo" processType="None">
+    <extensionElements>
+      <yaoqiang:description/>
+      <yaoqiang:pageFormat height="841.8897637795276" imageableHeight="831.8897637795276" imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0" width="598.1102362204724"/>
+      <yaoqiang:page background="#FFFFFF" horizontalCount="1" verticalCount="1"/>
+    </extensionElements>
+    <startEvent id="start" name="流程开始"/>
+    <userTask activiti:candidateGroups="部门主管" activiti:exclusive="true" id="zhuguan" name="主管审核"/>
+    <sequenceFlow id="_6" sourceRef="start" targetRef="zhuguan"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="leader_program" name="经理审批"/>
+    <sequenceFlow id="_8" sourceRef="zhuguan" targetRef="leader_program"/>
+    <userTask activiti:candidateGroups="部门经理" activiti:exclusive="true" id="jingli" name="经理审核"/>
+    <sequenceFlow id="_10" name="同意" sourceRef="leader_program" targetRef="jingli">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${code == "YES"}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway gatewayDirection="Unspecified" id="boss_program" name="老板审批"/>
+    <sequenceFlow id="_12" sourceRef="jingli" targetRef="boss_program"/>
+    <endEvent id="end" name="结束"/>
+    <sequenceFlow id="_15" name="拒绝" sourceRef="leader_program" targetRef="end">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${code == "NO"}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask activiti:candidateGroups="CTO" activiti:exclusive="true" id="cto" name="CTO审核"/>
+    <sequenceFlow id="_17" name="同意" sourceRef="boss_program" targetRef="cto">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${code == "YES"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_18" sourceRef="cto" targetRef="end"/>
+    <sequenceFlow id="_19" name="拒绝" sourceRef="boss_program" targetRef="end">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${code == "NO"}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#3C3F41;count=1;horizontalcount=2;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="Untitled Diagram">
+    <bpmndi:BPMNPlane bpmnElement="demoTest">
+      <bpmndi:BPMNShape bpmnElement="start" id="Shape-start">
+        <dc:Bounds height="32.0" width="32.0" x="345.0" y="-10.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="zhuguan" id="Shape-zhuguan">
+        <dc:Bounds height="55.0" width="85.0" x="320.0" y="80.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="leader_program" id="Shape-leader_program" isMarkerVisible="false">
+        <dc:Bounds height="32.0" width="32.0" x="345.0" y="180.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jingli" id="Shape-jingli">
+        <dc:Bounds height="55.0" width="85.0" x="320.0" y="285.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boss_program" id="Shape-boss_program" isMarkerVisible="false">
+        <dc:Bounds height="32.0" width="32.0" x="345.0" y="390.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="Shape-end">
+        <dc:Bounds height="32.0" width="32.0" x="570.0" y="535.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cto" id="Shape-cto">
+        <dc:Bounds height="55.0" width="85.0" x="320.0" y="525.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_12" id="BPMNEdge__12" sourceElement="boss" targetElement="boss_program">
+        <di:waypoint x="361.0" y="340.0"/>
+        <di:waypoint x="361.0" y="390.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_15" id="BPMNEdge__15" sourceElement="leader_program" targetElement="end">
+        <di:waypoint x="377.0" y="196.0"/>
+        <di:waypoint x="585.0" y="295.0"/>
+        <di:waypoint x="585.0" y="535.0312805773287"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="108.0" x="-1.0" y="21.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_17" id="BPMNEdge__17" sourceElement="boss_program" targetElement="task">
+        <di:waypoint x="361.0" y="422.0"/>
+        <di:waypoint x="361.0" y="525.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-8.0" width="0.0" x="0.0" y="-76.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_19" id="BPMNEdge__19" sourceElement="boss_program" targetElement="end">
+        <di:waypoint x="377.0" y="406.0"/>
+        <di:waypoint x="585.0" y="475.0"/>
+        <di:waypoint x="585.0" y="535.0312805773287"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="-61.0" x="0.0" y="26.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18" id="BPMNEdge__18" sourceElement="task" targetElement="end">
+        <di:waypoint x="405.0" y="552.5"/>
+        <di:waypoint x="570.0" y="551.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6" id="BPMNEdge__6" sourceElement="start" targetElement="leader">
+        <di:waypoint x="361.0" y="22.0"/>
+        <di:waypoint x="361.0" y="80.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8" id="BPMNEdge__8" sourceElement="leader" targetElement="leader_program">
+        <di:waypoint x="361.0" y="135.0"/>
+        <di:waypoint x="361.0" y="180.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10" id="BPMNEdge__10" sourceElement="leader_program" targetElement="boss">
+        <di:waypoint x="361.0" y="212.0"/>
+        <di:waypoint x="361.0" y="285.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-3.0" width="0.0" x="0.0" y="-56.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
