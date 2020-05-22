@@ -1,7 +1,7 @@
 Activiti框架Demo
 
 学习博客地址
-https://876745833.github.io/tags/Activiti%E5%B7%A5%E4%BD%9C%E6%B5%81/
+https://blog.csdn.net/qq_28249857
 
 app-demo 地址
 
